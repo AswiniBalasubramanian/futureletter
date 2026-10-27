@@ -56,3 +56,45 @@ export async function translate(text: string, lang: string): Promise<string> {
     throw err;
   }
 }
+
+// tones offered in the editor; the key is what the client sends
+export const TONES: Record<string, string> = {
+  poetic: "lyrical and poetic, with gentle imagery, rhythm and metaphor, but no forced rhyme",
+  romantic: "tender and romantic, warm and intimate",
+  heartfelt: "sincere and heartfelt, with simple, honest feeling",
+  playful: "light, playful and affectionate, with a little wit",
+  formal: "graceful and formal, like a letter from another century",
+  simple: "simpler and clearer, in short, plain sentences",
+};
+
+const REPHRASE_SYSTEM = `You rewrite passages from personal letters, written by someone to a person they love, to be opened years from now.
+Keep the meaning, the names and the language the passage is written in. Keep every line break where it is.
+Reply with the rewritten passage only: no title, no notes, no quotation marks.`;
+
+export async function rephrase(text: string, tone: string): Promise<string> {
+  const ask = TONES[tone];
+  if (!ask) throw new TranslateError("Choose a tone from the list.", 400);
+  if (!text.trim()) throw new TranslateError("There is nothing to rephrase yet.", 400);
+  try {
+    const response = await getClient().beta.messages.create({
+      model: "claude-opus-5-5",
+      max_tokens: 16000,
+      output_config: { effort: "low" },
+      betas: ["server-side-fallback-2026-07-01"],
+      fallbacks: "default",
+      system: REPHRASE_SYSTEM,
+      messages: [{ role: "user", content: `Rewrite this to be ${ask}:\n\n<passage>\n${text}\n</passage>` }],
+    });
+    if (response.stop_reason === "refusal") throw new TranslateError("This passage couldn't be rephrased.", 422);
+    const out = response.content.flatMap((b) => (b.type === "text" ? [b.text] : [])).join("").trim();
+    if (!out) throw new TranslateError("The rephrasing came back empty. Try again.", 502);
+    return out;
+  } catch (err) {
+    if (err instanceof TranslateError) throw err;
+    if (err instanceof Anthropic.AuthenticationError || err instanceof Anthropic.PermissionDeniedError) throw new TranslateError("Rephrasing on the server isn't set up (no Anthropic key).", 503);
+    if (err instanceof Anthropic.RateLimitError) throw new TranslateError("Too many requests right now. Try again in a minute.", 429);
+    if (err instanceof Anthropic.APIError) throw new TranslateError("The rephraser hit a snag. Try again.", 502);
+    if (err instanceof Error && /api ?key|auth/i.test(err.message)) throw new TranslateError("Rephrasing on the server isn't set up (no Anthropic key).", 503);
+    throw err;
+  }
+}

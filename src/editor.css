@@ -87,3 +87,37 @@ html[data-editor] .hud-top { left: calc((100% - 392px) / 2); }
   .hud-progress { display: none; }
   .hud-toggle { padding: 10px 12px; }
 }
+/* keep the sound switch clear of the editor and its close button */
+html[data-editor] .sound { right: 392px; }
+@media (max-width: 900px) {
+  html[data-editor] .sound { right: 18px; }
+  .editor { top: 64px; height: auto; }
+}
+
+/* undo in the header */
+.ed-head-actions { display: flex; align-items: center; gap: 8px; }
+.ed-undo { padding: 6px 12px; border-radius: 9999px; font-family: var(--type); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(243, 231, 207, 0.75); border: 1px solid rgba(212, 169, 89, 0.3); transition: background-color .3s, color .3s, opacity .3s; }
+.ed-undo:hover:not(:disabled) { color: var(--cream); background: rgba(243, 231, 207, 0.08); }
+.ed-undo:disabled { opacity: 0.35; cursor: default; }
+
+/* the selection menu floats at the bottom of the page while words are selected */
+.sel-menu {
+  position: absolute; left: 8px; right: 8px; bottom: 8px; z-index: 2;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 8px;
+  background: rgba(36, 18, 12, 0.94); border: 1px solid rgba(212, 169, 89, 0.35); border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(20, 6, 2, 0.45); color: var(--cream);
+}
+.sel-count { width: 100%; margin: 0 0 2px 4px; font-family: var(--type); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(243, 231, 207, 0.6); }
+.sel-act { padding: 6px 12px; border-radius: 9999px; font-family: var(--type); font-size: 12px; color: #24170f; background: var(--gold); transition: transform .2s; }
+.sel-act:hover { transform: translateY(-1px); }
+.sel-rule { width: 1px; height: 20px; background: rgba(212, 169, 89, 0.35); margin: 0 2px; }
+.sel-tone { padding: 6px 10px; border-radius: 9999px; font-size: 14px; color: var(--cream); border: 1px solid rgba(243, 231, 207, 0.22); transition: background-color .2s, border-color .2s; }
+.sel-tone:hover { background: rgba(243, 231, 207, 0.1); border-color: rgba(243, 231, 207, 0.45); }
+
+/* tone chips */
+.ed-hint { margin: -4px 0 0; font-size: 14px; line-height: 20px; color: rgba(243, 231, 207, 0.6); }
+.tone-chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.tone-chip { padding: 8px 6px; border-radius: 10px; font-size: 15px; color: var(--cream); border: 1px solid rgba(212, 169, 89, 0.3); background: rgba(243, 231, 207, 0.04); transition: background-color .25s, border-color .25s, transform .2s; }
+.tone-chip:hover:not(:disabled) { background: rgba(212, 169, 89, 0.14); border-color: rgba(212, 169, 89, 0.6); }
+.tone-chip:active:not(:disabled) { transform: scale(0.98); }
+.tone-chip:disabled { opacity: 0.4; cursor: default; }

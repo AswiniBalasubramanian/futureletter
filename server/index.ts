@@ -5,7 +5,7 @@ import { extname, join, normalize } from "node:path";
 import { insertLetter, getLetter, recentFromIp, db } from "./db.ts";
 import { transport } from "./mail.ts";
 import { startScheduler, tick } from "./scheduler.ts";
-import { translate, TranslateError, LANGUAGES } from "./translate.ts";
+import { translate, rephrase, TranslateError, LANGUAGES } from "./translate.ts";
 
 const PORT = Number(process.env.PORT ?? 8787);
 const DEV_DELIVER = process.env.NODE_ENV !== "production" || process.env.ALLOW_DEV_DELIVER === "1";
@@ -84,6 +84,16 @@ const server = createServer(async (req, res) => {
       const b = await readBody(req);
       try {
         return json(res, 200, { text: await translate(typeof b.text === "string" ? b.text.slice(0, 4000) : "", String(b.lang ?? "")) });
+      } catch (err) {
+        if (err instanceof TranslateError) return json(res, err.status, { error: err.message });
+        throw err;
+      }
+    }
+
+    if (req.method === "POST" && url.pathname === "/api/rephrase") {
+      const b = await readBody(req);
+      try {
+        return json(res, 200, { text: await rephrase(typeof b.text === "string" ? b.text.slice(0, 4000) : "", String(b.tone ?? "")) });
       } catch (err) {
         if (err instanceof TranslateError) return json(res, err.status, { error: err.message });
         throw err;

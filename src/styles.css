@@ -312,3 +312,34 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--gold); outl
 .scene { transition: opacity .9s cubic-bezier(.22, 1, .36, 1), right .5s cubic-bezier(.22, 1, .36, 1); }
 .stage-intro .veil { background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(10, 4, 2, 0.6)); }
 html.app-mode body { background-size: auto, 220px 220px, 132px 184px, auto; background-position: center, 0 0, center top, 0 0; }
+/* the compose intro reads as one line on desktop; it still wraps on narrow screens */
+.compose-head { max-width: none; }
+.compose-head .lede { max-width: none; }
+/* the same wine wall, with a fine linen weave added for texture */
+html.app-mode body {
+  background:
+    radial-gradient(120% 90% at 50% 35%, transparent 45%, rgba(18, 2, 7, 0.6)),
+    var(--noise),
+    var(--damask),
+    repeating-linear-gradient(0deg, rgba(255, 225, 215, 0.035) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.09) 0 1px, transparent 1px 4px),
+    #561320;
+  background-blend-mode: normal, multiply, normal, normal, normal, normal;
+  background-size: auto, 220px 220px, 132px 184px, auto, auto, auto;
+  background-position: center, 0 0, center top, 0 0, 0 0, 0 0;
+}
+
+/* paper texture on the wine wall: soft mottling, fine fibres and faint laid lines, colours unchanged */
+:root { --paper-tex: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22360%22%20height%3D%22360%22%3E%0A%3Cfilter%20id%3D%22m%22%20x%3D%220%22%20y%3D%220%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.009%22%20numOctaves%3D%223%22%20seed%3D%227%22%2F%3E%3CfeColorMatrix%20values%3D%220%200%200%200%201%20%200%200%200%200%200.86%20%200%200%200%200%200.82%20%200%200%200%20-1.6%200.95%22%2F%3E%3C%2Ffilter%3E%0A%3Cfilter%20id%3D%22f%22%20x%3D%220%22%20y%3D%220%22%3E%3CfeTurbulence%20type%3D%22turbulence%22%20baseFrequency%3D%220.35%200.018%22%20numOctaves%3D%222%22%20seed%3D%223%22%2F%3E%3CfeColorMatrix%20values%3D%220%200%200%200%200.1%20%200%200%200%200%200.02%20%200%200%200%200%200.03%20%200%200%200%20-2.2%201.25%22%2F%3E%3C%2Ffilter%3E%0A%3Cfilter%20id%3D%22g%22%20x%3D%220%22%20y%3D%220%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%222%22%20seed%3D%2211%22%2F%3E%3CfeColorMatrix%20values%3D%220%200%200%200%201%20%200%200%200%200%200.9%20%200%200%200%200%200.85%20%200%200%200%20-2.6%201.3%22%2F%3E%3C%2Ffilter%3E%0A%3Crect%20width%3D%22360%22%20height%3D%22360%22%20filter%3D%22url(%23m)%22%20opacity%3D%220.10%22%2F%3E%0A%3Crect%20width%3D%22360%22%20height%3D%22360%22%20filter%3D%22url(%23f)%22%20opacity%3D%220.22%22%2F%3E%0A%3Crect%20width%3D%22360%22%20height%3D%22360%22%20filter%3D%22url(%23g)%22%20opacity%3D%220.10%22%2F%3E%0A%3C%2Fsvg%3E"); }
+html.app-mode body {
+  background:
+    radial-gradient(120% 90% at 50% 35%, transparent 45%, rgba(18, 2, 7, 0.6)),
+    var(--paper-tex),
+    var(--noise),
+    var(--damask),
+    repeating-linear-gradient(0deg, rgba(255, 225, 215, 0.03) 0 1px, transparent 1px 7px),
+    #561320;
+  background-blend-mode: normal, normal, multiply, normal, normal, normal;
+  background-size: auto, 360px 360px, 220px 220px, 132px 184px, auto, auto;
+  background-position: center, 0 0, 0 0, center top, 0 0, 0 0;
+}
