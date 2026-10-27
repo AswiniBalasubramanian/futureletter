@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Scene from "../Scene";
-import { renderPage, cursor } from "../page";
+import { renderPage, cursor, newPage } from "../page";
 import { machine, stroke, codeFor } from "../machine";
 
 const SAMPLE = `Dear Mira,
@@ -14,7 +14,7 @@ Aswini`;
 
 /** The live typewriter in the hero window, typing a sample letter whenever it is on screen. */
 export default function Showcase() {
-  const page = useMemo(() => document.createElement("canvas"), []);
+  const page = useMemo(() => newPage(), []);
   const box = useRef<HTMLDivElement>(null);
   const [ready, setReady] = useState(false);
 

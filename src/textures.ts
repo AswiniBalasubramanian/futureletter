@@ -80,9 +80,9 @@ export function plateTexture() {
   g.textAlign = "center";
   g.fillStyle = "rgba(255,236,190,0.55)";
   g.font = `italic 600 58px "Cormorant Garamond Variable", Georgia, serif`;
-  g.fillText("Amor & Co.", 257, 84);
+  g.fillText("Aswini & Co.", 257, 84);
   g.fillStyle = "rgba(60,35,10,0.85)";
-  g.fillText("Amor & Co.", 256, 82);
+  g.fillText("Aswini & Co.", 256, 82);
   g.font = `600 18px Georgia, serif`;
   g.fillText("LETTERS  FOR  LATER  ·  No. 7", 256, 122);
   const t = new THREE.CanvasTexture(c);

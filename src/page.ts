@@ -98,6 +98,17 @@ export function paperBase() {
   return c;
 }
 
+/**
+ * A blank sheet at full page size. The 3D paper's texture keeps the size it is first uploaded with,
+ * so the canvas must never start at the browser's 300×150 default and grow later.
+ */
+export function newPage() {
+  const c = document.createElement("canvas");
+  c.width = PAGE.w; c.height = PAGE.h;
+  c.getContext("2d")!.drawImage(paperBase(), 0, 0);
+  return c;
+}
+
 /** Draws the base sheet plus every typed character onto `c`. */
 export function renderPage(c: HTMLCanvasElement, text: string) {
   c.width = PAGE.w; c.height = PAGE.h;

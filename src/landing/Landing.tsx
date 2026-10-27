@@ -7,6 +7,7 @@ import { ogee } from "../pattern";
 
 const LATTICE = ogee("#7a4f22", 0.1);
 import { WaxSeal, Stamp, CupidStampArt, Postmark } from "../Postal";
+import { longDate, iso } from "../letter";
 import { go } from "../router";
 import "./landing.css";
 
@@ -243,14 +244,24 @@ export default function Landing() {
         </section>
 
         <Reveal className="lp-final">
-          <div className="lp-final-card">
-            <span className="c tl"><NouveauCorner /></span><span className="c tr"><NouveauCorner /></span>
-            <span className="c bl"><NouveauCorner /></span><span className="c br"><NouveauCorner /></span>
-            <Medallion size={56} />
-            <h2>Someone will open this on a morning you choose</h2>
-            <p>Your first letter is free. No account, no card, just a name and an inbox.</p>
-            <Cta />
-            <Rule />
+          {/* the closing call is itself a postcard: message on the left, stamp and address on the right */}
+          <div className="lp-postcard">
+            <div className="lp-pc-inner">
+              <div className="lp-pc-message">
+                <p className="lp-pc-kicker">Postcard from the present</p>
+                <h2>Someone will open this on a morning you choose</h2>
+                <p>Your first letter is free. No account, no card, just a name and an inbox.</p>
+                <Cta />
+              </div>
+              <div className="lp-pc-divider" aria-hidden />
+              <div className="lp-pc-address" aria-hidden>
+                <div className="lp-pc-stamp"><Stamp tone="#f6e6da"><CupidStampArt /></Stamp></div>
+                <Postmark id="final" date={longDate(iso(new Date()))} style={{ color: "#2e3a7a" }} />
+                <p className="lp-pc-to">Someone you love</p>
+                <p className="lp-pc-line">their inbox, wherever it is</p>
+                <p className="lp-pc-line lp-pc-when">Opens on the morning you choose</p>
+              </div>
+            </div>
           </div>
         </Reveal>
       </main>
@@ -261,7 +272,7 @@ export default function Landing() {
           <a href="/privacy" onClick={(e) => { e.preventDefault(); go("/privacy"); }}>Privacy</a>
           <a href="/terms" onClick={(e) => { e.preventDefault(); go("/terms"); }}>Terms</a>
         </nav>
-        <span>© 2026 Amor & Co.</span>
+        <span>© 2026 Aswini & Co.</span>
       </footer>
     </div>
   );

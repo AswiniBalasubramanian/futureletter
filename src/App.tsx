@@ -6,7 +6,7 @@ import Compose from "./Compose";
 import Typing from "./Typing";
 import Seal from "./Seal";
 import Sent from "./Sent";
-import { renderPage } from "./page";
+import { renderPage, newPage } from "./page";
 import { machine } from "./machine";
 import { ogee } from "./pattern";
 import { type Letter, type Post, blankLetter, iso, saveToOutbox, postLetter } from "./letter";
@@ -21,7 +21,7 @@ export default function App() {
   const [image, setImage] = useState("");
   const [sound, setSound] = useState(true);
   const [post, setPost] = useState<Post>({ state: "sending" });
-  const page = useMemo(() => document.createElement("canvas"), []);
+  const page = useMemo(() => newPage(), []);
   const [fontsReady, setFontsReady] = useState(false);
 
   useEffect(() => {

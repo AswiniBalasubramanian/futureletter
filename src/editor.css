@@ -81,3 +81,9 @@ html[data-editor] .hud-top { left: calc((100% - 392px) / 2); }
   .hud-bar { gap: 8px; padding-left: 16px; }
   .hud-progress { min-width: 0; }
 }
+.hud-bar .seal-btn, .hud-toggle, .hud-progress p { white-space: nowrap; }
+@media (max-width: 640px) {
+  .hud-bar { gap: 6px; padding: 6px 6px 6px 14px; }
+  .hud-progress { display: none; }
+  .hud-toggle { padding: 10px 12px; }
+}

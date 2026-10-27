@@ -291,3 +291,30 @@
 }
 .rose-arch .engraved { filter: drop-shadow(0 1px 0.5px rgba(90, 50, 20, 0.25)); }
 .lp-keystone, .lp-rose { display: none; }
+
+/* closing postcard */
+.lp-postcard { position: relative; max-width: 880px; margin: 0 auto; padding: 12px; background: #fbf7ef; transform: rotate(-1deg);
+  --r: 6px; --s: 16px;
+  -webkit-mask: radial-gradient(var(--r) at var(--r) var(--r), #0000 97%, #000) calc(-1 * var(--r)) calc(-1 * var(--r)) / var(--s) var(--s) round, linear-gradient(#000 0 0) content-box;
+  mask: radial-gradient(var(--r) at var(--r) var(--r), #0000 97%, #000) calc(-1 * var(--r)) calc(-1 * var(--r)) / var(--s) var(--s) round, linear-gradient(#000 0 0) content-box; }
+.lp-final { filter: drop-shadow(0 24px 30px rgba(90, 55, 20, 0.28)); }
+.lp-pc-inner { display: grid; grid-template-columns: 1.35fr auto 1fr; gap: 32px; padding: 40px; color: #24170f;
+  background: var(--noise), radial-gradient(120% 120% at 30% 20%, #f6eedd, #efe5d0 60%, #e3d4b4); background-blend-mode: multiply; }
+.lp-pc-message { display: grid; gap: 16px; align-content: center; justify-items: start; }
+.lp-pc-kicker { font-family: var(--type); font-size: 12px; line-height: 16px; letter-spacing: 0.14em; text-transform: uppercase; color: #5b4633; }
+.lp-pc-message h2 { font-size: 40px; line-height: 1.05; }
+.lp-pc-message p:not(.lp-pc-kicker) { color: #5b4633; max-width: 40ch; }
+.lp-pc-divider { width: 6px; border-left: 1.5px solid rgba(36, 23, 15, 0.55); border-right: 1.5px solid rgba(36, 23, 15, 0.55); }
+.lp-pc-address { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-height: 300px; }
+.lp-pc-stamp { position: absolute; top: 0; right: 0; transform: rotate(3deg); }
+.lp-pc-stamp .stamp { width: 96px; }
+.lp-pc-address .postmark { position: absolute; top: 28px; right: 60px; width: 220px; opacity: 0.78; transform: rotate(-8deg); mix-blend-mode: multiply; }
+.lp-pc-address p { margin: 0; padding: 8px 0 4px; border-bottom: 1px solid rgba(36, 23, 15, 0.35); }
+.lp-pc-to { font-family: var(--script); font-size: 34px; line-height: 40px; }
+.lp-pc-line { font-family: var(--type); font-size: 14px; line-height: 20px; }
+.lp-pc-when { color: #7c1d24; }
+@media (max-width: 760px) {
+  .lp-pc-inner { grid-template-columns: 1fr; padding: 24px; }
+  .lp-pc-divider { display: none; }
+  .lp-pc-address { min-height: 240px; }
+}
